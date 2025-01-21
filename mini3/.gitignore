@@ -1,0 +1,11 @@
+.venv/
+venv/
+**/*_pb2.py
+**/*_pb2_grpc.py
+**/python/servers
+**/python/__pycache__/
+**/python/server_files/
+**/*__pycache__/
+data/
+**/.DS_Store
+**/*.tar.gz

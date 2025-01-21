@@ -1,0 +1,14 @@
+.idea/
+**/.DS_Store
+.vscode/
+datasets/
+data/
+venv/
+src/pre-processing/data/
+new_env
+**/*.o
+**/*.out
+build/
+cmake-build-debug/
+docs/
+**/*.tar.gz

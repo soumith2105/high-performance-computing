@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package ring;
+
+// Response for registration and message handling
+message Response {
+    string message = 1;
+    bool success = 2;
+}
+
+message ArrayObject {
+    string latitude = 1;
+    string longitude = 2;
+    string parameter = 3;
+    int64 aqi = 4;
+    string sitename = 5;
+}
+
+message ArrayOfObjectResponse {
+    repeated ArrayObject object = 1;
+}
+
+message ObjectOfArrayResponse {
+    repeated string latitude = 1;
+    repeated string longitude = 2;
+    repeated string parameter = 3;
+    repeated int64 aqi = 4;
+    repeated string sitename = 5;
+}
+
+// Message to send/relay messages
+message RelayMessage {
+    string target = 1;
+    string message = 2;
+}
+
+// Server discovery request
+message DiscoverRequest {}
+
+message Node {
+    string left = 1;
+    string right = 2;
+}
+
+// Ring topology response
+message RingResponse {
+    map<string, Node> ring = 1; // Host to its left neighbor mapping
+}
+
+// Hub service
+service CentralHub {
+    rpc Discover (DiscoverRequest) returns (Response);
+    rpc Register (RingResponse) returns (Response);
+    rpc SendMessage (RelayMessage) returns (Response);
+    rpc GetObjectOfArray (RelayMessage) returns (ObjectOfArrayResponse);
+    rpc GetArrayOfObject (RelayMessage) returns (ArrayOfObjectResponse);
+}
+
+// Server service
+service RingServer {
+    rpc Relay (RelayMessage) returns (Response);
+    rpc Register (RingResponse) returns (Response);
+    rpc GetObjectOfArray (RelayMessage) returns (ObjectOfArrayResponse);
+    rpc GetArrayOfObject (RelayMessage) returns (ArrayOfObjectResponse);
+}

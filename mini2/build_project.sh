@@ -1,0 +1,1 @@
+git ls-files -z | tar --null -czvf mini2.tar.gz --files-from=-

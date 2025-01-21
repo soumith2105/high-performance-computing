@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+message ArrayObject {
+    string latitude = 1;
+    string longitude = 2;
+    string parameter = 3;
+    int64 aqi = 4;
+    string sitename = 5;
+}
+
+message ArrayOfObjectResponse {
+    repeated ArrayObject object = 1;
+}
+
+message ObjectOfArrayResponse {
+    repeated string latitude = 1;
+    repeated string longitude = 2;
+    repeated string parameter = 3;
+    repeated int64 aqi = 4;
+    repeated string sitename = 5;
+}
+
+service DataProcessor {
+    rpc ProcessData (DataRequest) returns (DataResponse);
+    rpc GetObjectOfArray (DataRequest) returns (ObjectOfArrayResponse);
+    rpc GetArrayOfObject (DataRequest) returns (ArrayOfObjectResponse);
+}
+
+message DataRequest {
+    string message = 1;
+    string target = 2;
+}
+
+message DataResponse {
+    string reply = 1;
+}
